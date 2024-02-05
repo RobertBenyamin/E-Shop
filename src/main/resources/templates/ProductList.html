@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Product List</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 
@@ -16,12 +17,18 @@
         <tr>
             <th scope="col">Product Name</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="product: ${products}">
             <td th:text="${product.productName}"></td>
             <td th:text="${product.productQuantity}"></td>
+            <td>
+                <a th:href="@{/product/delete/{productId} (productId=${product.productId})}" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
