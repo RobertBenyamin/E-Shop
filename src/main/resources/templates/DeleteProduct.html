@@ -28,7 +28,7 @@
         
         <a th:href="@{/product/list}" class="btn btn-secondary">Cancel</a>
         <form th:action="@{/product/delete/{productId} (productId=${productId})}" method="post" style="display: inline;">
-            <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+            <button type="submit" class="btn btn-primary" style="float: right;" id="submit">Submit</button>
         </form>
     </div>
 </div>
