@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
         productIterator.forEachRemaining(allProduct::add);
         return allProduct;
     }
-    
+
     @Override
     public Product findById(String productId) {
         Iterator<Product> productIterator = productRepository.findAll();
@@ -64,9 +64,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(String productId) {
         Product product = findById(productId);
-        if(product == null) {
+        if (product == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
         }
         productRepository.delete(product);
+    }
+
+    @Override
+    public Product edit(Product product) {
+        Product editedProduct = findById(product.getProductId());
+        if (editedProduct == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+        }
+        productRepository.edit(product);
+        return product;
     }
 }
