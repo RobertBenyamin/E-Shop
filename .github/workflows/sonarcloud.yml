@@ -1,6 +1,15 @@
 name: Sonar Cloud Security Scan
 on:
     push:
+      branches-ignore:
+        - '*'
+    pull_request:
+      branches-ignore:
+        - '*'
+    workflow_dispatch:
+  
+permissions:
+  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
   
 jobs:
     sonarcloud:
@@ -15,3 +24,7 @@ jobs:
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              with:
+                args:
+                    -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+                    -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
