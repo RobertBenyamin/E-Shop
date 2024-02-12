@@ -2,7 +2,7 @@ FROM docker.io/library/eclipse-temurin:21-jdk-alpine AS builder
 
 WORKDIR /src/eshop
 COPY . .
-RUN ./gradlew clean bootjar
+RUN chmod +x ./gradlew && ./gradlew clean bootJar
 
 FROM docker.io/library/eclipse-temurin:21-jre-alpine AS runner
 
