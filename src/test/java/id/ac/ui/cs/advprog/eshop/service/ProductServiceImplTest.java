@@ -39,7 +39,6 @@ public class ProductServiceImplTest {
         product.setProductId("1");
         product.setProductName("Sampo Cap Bambang");
         product.setProductQuantity(100);
-        when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
         when(productRepository.create(any(Product.class))).thenReturn(product);
 
         // Act
@@ -102,17 +101,12 @@ public class ProductServiceImplTest {
     @Test
     void testGetLastId() {
         // Arrange
-        Product product1 = new Product();
-        product1.setProductId("1");
-        Product product2 = new Product();
-        product2.setProductId("2");
-        when(productRepository.findAll()).thenReturn(Arrays.asList(product1, product2).iterator());
+        String lastId1 = "0"; 
+        String lastId2 = "1"; 
 
-        // Act
-        String lastId = productService.getLastId();
-
-        // Assert
-        assertEquals("3", lastId);
+        // Act & Assert
+        assertEquals(lastId1, productService.getLastId());
+        assertEquals(lastId2, productService.getLastId());
     }
 
     @Test
