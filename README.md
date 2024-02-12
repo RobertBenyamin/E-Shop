@@ -1,4 +1,7 @@
-## ADV Shop
+# ADV Shop
+Link Deployment: https://robert-benyamin-adv-shop.koyeb.app/
+
+## Module 1
 
 <details>
 <summary>Reflection 1</summary>
@@ -76,5 +79,20 @@ Kode saya barulah mengimplementasikan testing untuk memenuhi prinsip secure codi
     - 100% code coverage tidak menjamin bahwa kode kita bebas dari error atau bug. 100% code coverage hanya berarti seluruh bagian kode kita telah dites. Namun suatu bagian kode bisa memiliki beberapa skenario. Bisa saja terdapat kemungkinan skenario yang tidak ditangani oleh test kita.
 
 2. Menurut saya kode tersebut jadi kurang bersih karena terdapat redundansi kode. Selain itu, jika suatu saat kita perlu melakukan perubahan pada setup prosedur, maka kita perlu melakukan dua kali perubahan. Untuk meningkatkan kode tersebut, kita dapat menempatkan test untuk menghitung jumlah item pada product list di file yang sama sehingga kita tidak perlu menjalankan prosedur setup dua kali.
+
+</details>
+
+## Module 2
+
+<details>
+<summary>Reflection</summary>
+
+1. List of Code Quality Issues that have been Fixed
+    - Menghapus `access modifier public` dari fungsi fungsi pada `ProductService.java`
+    - Menambahkan `token permission` pada `ci.yml`
+    - Menghapus import yang tidak terpakai pada `ProductRepositoryTest.java`
+    - Menambahkan deskripsi kepada tabel pada `productList.html`
+
+2. Ya, menurut saya implementasi sekarang sudah memenuhi Continuous Integration dan Continuous Deployment. Continuous Integration merupakan praktik untuk mengautomasi proses integrasi dan verifikasi setiap perubahan pada kode kita dengan bantuan alat. Implementasi sekarang sudah memenuhi hal tersebut dengan membuat script untuk menjalankan test suite (`ci.yml`) dan menganalisis isu keamanan (`pmd.yml` & `scorecard.yml`) setiap melakukan push ke repository Github. Continuous Deployment merupakan praktik untuk mengautomasi proses deployment aplikasi kita ke server tertentu. Implementasi sekarang sudah memenuhi hal tersebut dengan mengintegrasikan layanan `Koyeb` ke repository Github, sehingga aplikasi akan otomatis ter-deploy setiap kali melakukan push ke branch main repository Github.
 
 </details>

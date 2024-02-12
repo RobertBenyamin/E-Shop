@@ -16,6 +16,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+    private int productLastId;
 
     @Override
     public Product create(Product product) {
@@ -46,19 +47,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String getLastId() {
-        Iterator<Product> productIterator = productRepository.findAll();
-        String lastId = "0";
-        while (productIterator.hasNext()) {
-            Product product = productIterator.next();
-            String productId = product.getProductId();
-            if (productId.compareTo(lastId) > 0) {
-                lastId = productId;
-            }
+        if(productLastId == 0){
+            productLastId++;
+            return "0";
         }
-        int lastIdNumber = Integer.parseInt(lastId);
-        lastIdNumber++;
-        lastId = String.format("%d", lastIdNumber);
-        return lastId;
+        return String.format("%d", productLastId++);
     }
 
     @Override
