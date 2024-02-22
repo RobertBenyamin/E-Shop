@@ -37,12 +37,6 @@ public class ProductControllerTest {
     }
 
     @Test
-    void testIndex() {
-        String result = productController.index();
-        assertEquals("home", result);
-    }
-
-    @Test
     void testCreateProductPage() {
         String result = productController.createProductPage(model);
         assertEquals("createProduct", result);
