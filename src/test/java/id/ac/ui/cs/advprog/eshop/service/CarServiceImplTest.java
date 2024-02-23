@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 public class CarServiceImplTest {
     @InjectMocks
     private CarServiceImpl carService;
-    
+
     @Mock
     private CarRepository carRepository;
 
@@ -32,10 +32,10 @@ public class CarServiceImplTest {
     void testCreateCar() {
         // Arrange
         Car car = new Car();
-        car.setCarId("1");
-        car.setCarName("Toyota");
-        car.setCarColor("Red");
-        car.setCarQuantity(5);
+        car.setId("1");
+        car.setName("Toyota");
+        car.setColor("Red");
+        car.setQuantity(5);
 
         // Act
         carService.create(car);
@@ -49,16 +49,16 @@ public class CarServiceImplTest {
         // Arrange
         List<Car> cars = new ArrayList<>();
         Car car1 = new Car();
-        car1.setCarId("1");
-        car1.setCarName("Toyota");
-        car1.setCarColor("Red");
-        car1.setCarQuantity(5);
+        car1.setId("1");
+        car1.setName("Toyota");
+        car1.setColor("Red");
+        car1.setQuantity(5);
 
         Car car2 = new Car();
-        car2.setCarId("2");
-        car2.setCarName("Honda");
-        car2.setCarColor("Blue");
-        car2.setCarQuantity(3);
+        car2.setId("2");
+        car2.setName("Honda");
+        car2.setColor("Blue");
+        car2.setQuantity(3);
 
         cars.add(car1);
         cars.add(car2);
@@ -76,10 +76,10 @@ public class CarServiceImplTest {
     void testFindCarById() {
         // Arrange
         Car car = new Car();
-        car.setCarId("1");
-        car.setCarName("Toyota");
-        car.setCarColor("Red");
-        car.setCarQuantity(5);
+        car.setId("1");
+        car.setName("Toyota");
+        car.setColor("Red");
+        car.setQuantity(5);
 
         when(carRepository.findById("1")).thenReturn(car);
 
@@ -94,10 +94,10 @@ public class CarServiceImplTest {
     void testUpdateCar() {
         // Arrange
         Car car = new Car();
-        car.setCarId("1");
-        car.setCarName("Toyota");
-        car.setCarColor("Red");
-        car.setCarQuantity(5);
+        car.setId("1");
+        car.setName("Toyota");
+        car.setColor("Red");
+        car.setQuantity(5);
 
         // Act
         carService.update("1", car);

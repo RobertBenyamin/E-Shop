@@ -29,10 +29,10 @@ public class CarRepositoryTest {
 
     @Test
     void testCreate() {
-        when(mockCar.getCarId()).thenReturn("1");
+        when(mockCar.getId()).thenReturn("1");
         Car createdCar = carRepository.create(mockCar);
         assertNotNull(createdCar);
-        assertNotNull(createdCar.getCarId());
+        assertNotNull(createdCar.getId());
     }
 
     @Test
@@ -41,14 +41,14 @@ public class CarRepositoryTest {
         carData.add(mockCar);
 
         Iterator<Car> iterator = carData.iterator();
-        when(mockCar.getCarId()).thenReturn("1");
+        when(mockCar.getId()).thenReturn("1");
 
-        assertEquals(iterator.next().getCarId(), "1");
+        assertEquals(iterator.next().getId(), "1");
     }
 
     @Test
     void testFindById() {
-        when(mockCar.getCarId()).thenReturn("1");
+        when(mockCar.getId()).thenReturn("1");
         carRepository.create(mockCar);
         assertEquals(carRepository.findById("1"), mockCar);
     }
@@ -57,37 +57,37 @@ public class CarRepositoryTest {
     public void testUpdateExistingCar() {
         // Arrange
         Car initialCar = new Car();
-        initialCar.setCarId("1");
-        initialCar.setCarName("Toyota");
-        initialCar.setCarColor("Red");
-        initialCar.setCarQuantity(5);
+        initialCar.setId("1");
+        initialCar.setName("Toyota");
+        initialCar.setColor("Red");
+        initialCar.setQuantity(5);
         carRepository.create(initialCar);
 
         Car updatedCar = new Car();
-        updatedCar.setCarId("1");
-        updatedCar.setCarName("Toyota Camry");
-        updatedCar.setCarColor("Blue");
-        updatedCar.setCarQuantity(10);
+        updatedCar.setId("1");
+        updatedCar.setName("Toyota Camry");
+        updatedCar.setColor("Blue");
+        updatedCar.setQuantity(10);
 
         // Act
         Car updated = carRepository.update("1", updatedCar);
 
         // Assert
         assertNotNull(updated);
-        assertEquals("1", updated.getCarId());
-        assertEquals("Toyota Camry", updated.getCarName());
-        assertEquals("Blue", updated.getCarColor());
-        assertEquals(10, updated.getCarQuantity());
+        assertEquals("1", updated.getId());
+        assertEquals("Toyota Camry", updated.getName());
+        assertEquals("Blue", updated.getColor());
+        assertEquals(10, updated.getQuantity());
     }
 
     @Test
     public void testUpdateNonExistingCar() {
         // Arrange
         Car initialCar = new Car();
-        initialCar.setCarId("1");
-        initialCar.setCarName("Toyota Camry");
-        initialCar.setCarColor("Blue");
-        initialCar.setCarQuantity(10);
+        initialCar.setId("1");
+        initialCar.setName("Toyota Camry");
+        initialCar.setColor("Blue");
+        initialCar.setQuantity(10);
 
         // Act
         Car updated = carRepository.update("2", initialCar);
@@ -98,10 +98,9 @@ public class CarRepositoryTest {
 
     @Test
     void testDelete() {
-        when(mockCar.getCarId()).thenReturn("1");
+        when(mockCar.getId()).thenReturn("1");
         carRepository.create(mockCar);
         carRepository.delete("1");
         assertNull(carRepository.findById("1"));
     }
 }
-
