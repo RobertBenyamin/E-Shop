@@ -16,11 +16,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-    private int productLastId;
+    private int lastId;
 
     @Override
     public Product create(Product product) {
-        product.setProductId(getLastId());
+        product.setId(getLastId());
         productRepository.create(product);
         return product;
     }
@@ -34,11 +34,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(String productId) {
+    public Product findById(String id) {
         Iterator<Product> productIterator = productRepository.findAll();
         while (productIterator.hasNext()) {
             Product product = productIterator.next();
-            if (product.getProductId().equals(productId)) {
+            if (product.getId().equals(id)) {
                 return product;
             }
         }
@@ -47,16 +47,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String getLastId() {
-        if(productLastId == 0){
-            productLastId++;
+        if (lastId == 0) {
+            lastId++;
             return "0";
         }
-        return String.format("%d", productLastId++);
+        return String.format("%d", lastId++);
     }
 
     @Override
-    public void deleteById(String productId) {
-        Product product = findById(productId);
+    public void deleteById(String id) {
+        Product product = findById(id);
         if (product == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
         }
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product edit(Product product) {
-        Product editedProduct = findById(product.getProductId());
+        Product editedProduct = findById(product.getId());
         if (editedProduct == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
         }

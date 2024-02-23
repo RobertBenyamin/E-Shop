@@ -23,15 +23,15 @@
         </thead>
         <tbody>
         <tr th:each="product: ${products}">
-            <td th:text="${product.productName}" th:id="'name_' + ${product.productId}"></td>
-            <td th:text="${product.productQuantity}" th:id="'quantity_' + ${product.productId}"></td>
+            <td th:text="${product.name}" th:id="'name_' + ${product.id}"></td>
+            <td th:text="${product.quantity}" th:id="'quantity_' + ${product.id}"></td>
             <td>
-                <a th:href="@{/product/edit/{productId} (productId=${product.productId})}" class="btn btn-primary btn-sm" th:id="'edit_' + ${product.productId}">
+                <a th:href="@{/product/edit/{id} (id=${product.id})}" class="btn btn-primary btn-sm" th:id="'edit_' + ${product.id}">
                     <i class="fas fa-edit"></i>
                 </a>
             </td>
             <td>
-                <a th:href="@{/product/delete/{productId} (productId=${product.productId})}" class="btn btn-danger btn-sm" th:id="'delete_' + ${product.productId}">
+                <a th:href="@{/product/delete/{id} (id=${product.id})}" class="btn btn-danger btn-sm" th:id="'delete_' + ${product.id}">
                     <i class="fas fa-trash-alt"></i>
                 </a>
             </td>

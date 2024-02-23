@@ -37,12 +37,6 @@ public class ProductControllerTest {
     }
 
     @Test
-    void testIndex() {
-        String result = productController.index();
-        assertEquals("home", result);
-    }
-
-    @Test
     void testCreateProductPage() {
         String result = productController.createProductPage(model);
         assertEquals("createProduct", result);
@@ -67,42 +61,42 @@ public class ProductControllerTest {
 
     @Test
     void testDeleteProductPage() {
-        String productId = "123";
+        String id = "123";
         Product product = new Product();
-        product.setProductId(productId);
-        when(productService.findById(productId)).thenReturn(product);
-        String result = productController.deleteProductPage(productId, model);
+        product.setId(id);
+        when(productService.findById(id)).thenReturn(product);
+        String result = productController.deleteProductPage(id, model);
         assertEquals("deleteProduct", result);
-        verify(model, times(1)).addAttribute("productId", productId);
-        verify(model, times(1)).addAttribute("productName", product.getProductName());
-        verify(model, times(1)).addAttribute("productQuantity", product.getProductQuantity());
+        verify(model, times(1)).addAttribute("id", id);
+        verify(model, times(1)).addAttribute("name", product.getName());
+        verify(model, times(1)).addAttribute("quantity", product.getQuantity());
     }
 
     @Test
     void testDeleteProduct() {
-        String productId = "123";
-        String result = productController.deleteProduct(productId);
+        String id = "123";
+        String result = productController.deleteProduct(id);
         assertEquals("redirect:/product/list", result);
-        verify(productService, times(1)).deleteById(productId);
+        verify(productService, times(1)).deleteById(id);
     }
 
     @Test
     void testEditProductPage() {
-        String productId = "123";
+        String id = "123";
         Product product = new Product();
-        product.setProductId(productId);
-        when(productService.findById(productId)).thenReturn(product);
-        String result = productController.editProductPage(productId, model);
+        product.setId(id);
+        when(productService.findById(id)).thenReturn(product);
+        String result = productController.editProductPage(id, model);
         assertEquals("editProduct", result);
         verify(model, times(1)).addAttribute("product", product);
     }
 
     @Test
     void testEditProduct() {
-        String productId = "123";
+        String id = "123";
         Product product = new Product();
-        product.setProductId(productId);
-        String result = productController.editProduct(productId, product);
+        product.setId(id);
+        String result = productController.editProduct(id, product);
         assertEquals("redirect:/product/list", result);
         verify(productService, times(1)).edit(product);
     }

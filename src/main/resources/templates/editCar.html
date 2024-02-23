@@ -11,20 +11,20 @@
     <h1 class="text-3xl font-bold mb-4">Edit Car</h1>
 
     <form th:action="@{/car/editCar}" method="post" th:object="${car}" class="max-w-md bg-white p-6 rounded-md shadow-md">
-        <input type="hidden" th:field="*{carId}" />
+        <input type="hidden" th:field="*{id}" />
         <div class="mb-4">
-            <label for="carName" class="block text-sm font-medium text-gray-600">Car Name</label>
-            <input type="text" id="carName" th:field="*{carName}" name="carName" th:value="${car.carName}" class="mt-1 p-2 w-full border rounded-md">
+            <label for="name" class="block text-sm font-medium text-gray-600">Car Name</label>
+            <input type="text" id="name" th:field="*{name}" name="name" th:value="${car.name}" class="mt-1 p-2 w-full border rounded-md">
         </div>
 
         <div class="mb-4">
-            <label for="carColor" class="block text-sm font-medium text-gray-600">Car Color</label>
-            <input th:field="*{carColor}" type="text" id="carColor" name="carQuantity" th:value="${car.carColor}" class="mt-1 p-2 w-full border rounded-md">
+            <label for="color" class="block text-sm font-medium text-gray-600">Car Color</label>
+            <input th:field="*{color}" type="text" id="color" name="quantity" th:value="${car.color}" class="mt-1 p-2 w-full border rounded-md">
         </div>
 
         <div class="mb-4">
-            <label for="carQuantity" class="block text-sm font-medium text-gray-600">Car Quantity</label>
-            <input th:field="*{carQuantity}" type="number" id="carQuantity" name="carQuantity" th:value="${car.carQuantity}" class="mt-1 p-2 w-full border rounded-md">
+            <label for="quantity" class="block text-sm font-medium text-gray-600">Car Quantity</label>
+            <input th:field="*{quantity}" type="number" id="quantity" name="quantity" th:value="${car.quantity}" class="mt-1 p-2 w-full border rounded-md">
         </div>
 
         <div class="flex justify-end">
