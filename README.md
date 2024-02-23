@@ -96,3 +96,37 @@ Kode saya barulah mengimplementasikan testing untuk memenuhi prinsip secure codi
 2. Ya, menurut saya implementasi sekarang sudah memenuhi Continuous Integration dan Continuous Deployment. Continuous Integration merupakan praktik untuk mengautomasi proses integrasi dan verifikasi setiap perubahan pada kode kita dengan bantuan alat. Implementasi sekarang sudah memenuhi hal tersebut dengan membuat script untuk menjalankan test suite (`ci.yml`) dan menganalisis isu keamanan (`pmd.yml` & `scorecard.yml`) setiap melakukan push ke repository Github. Continuous Deployment merupakan praktik untuk mengautomasi proses deployment aplikasi kita ke server tertentu. Implementasi sekarang sudah memenuhi hal tersebut dengan mengintegrasikan layanan `Koyeb` ke repository Github, sehingga aplikasi akan otomatis ter-deploy setiap kali melakukan push ke branch main repository Github.
 
 </details>
+
+</details>
+
+## Module 3
+
+<details>
+<summary>Reflection</summary>
+
+1. Explain what principles you apply to your project!
+    - Single Responsibility Principle (SRP)  
+    Saya mengimplementasikan SRP dengan membuat class CarController dan HomeController terpisah dari file ProductController. Hal ini membuat setiap class hanya berinteraksi dengan satu model. Selain itu, saya juga menghapus extends ProductController dari CarController. Hal ini membuat CarController benar benar fokus terhadap model Car saja.
+    - Open-Closed Principle (OCP)  
+    OCP terdapat pada CarService, CarServiceImpl dan ProductService, ProductServiceImpl. CarService dan ProductService sudah tertutup terhadap modfikasi. Jika ingin menambahkan fungsionalitas, saya bisa meng-implement service baru pada ProductServiceImpl dan CarServiceImpl.
+    - Liskov Substitution Principle (LSP)  
+    Class *ServiceImpl adalah turunan dari *Service. *ServiceImpl dapat digunakan untuk menggantikan *Service. Hal ini sesuai dengan prinsip LSP dimana subclass dapat digunakan untuk menggantikan parent-nya.
+    - Interface Segregation Principle (ISP)  
+    Interface pada project ini sudah dipisahkan menjadi ProductService dan CarService sehingga class ProductServiceImpl dan CarServiceImpl dapat mengimplementasikan interface yang mereka perlukan saja.
+    - Dependency Inversions Principle (DIP)  
+    Saya mengubah `private CarServiceImpl carservice;` menjadi `private CarService carservice;` pada CarController. Hal ini sesuai dengan prinsip DIP dimana suatu class harus bergantung pada interface atau abstract class dibandingkan implementasi konkret.
+
+2. The advantages of applying SOLID principles
+    - Kode lebih mudah dipahami
+    - Karena kode mudah dipahami, saya juga akan lebih mudah melakukan perubahan terhadap kode
+    - Prinsip seperti SRP membuat lebih mudah ketika ingin melakukan testing karena kompleksitas yang rendah dari setiap method
+    - Mengurangi resiko terjadinya bug. Dengan meimplemntasikan SOLID principle, project saya akan menjadi low coupling dan high cohesion. Hal ini akan membuat perubahan yang saya lakukan di suatu kode tidak akan mempengaruhi kode lainnya sehingga mengurangi terjadinya error. Sebagai contoh, sebelumnya jika saya ingin mengubah hal-hal yang berhubungan dengan Product atau Car, saya harus melakukannya di satu file saja, yaitu ProductController. Namun, sekarang saya hanya perlu mengubah CarController jika saya ingin mengubah hal-hal yang berhubungan dengan Car.
+
+3. The disadvantages of not applying SOLID principles
+    - Kode lebih sulit dipahami
+    - Ribet ketika ingin menambahkan fungsionalitas baru
+    - Testing lebih sulit dibuat
+    - Error atau bug akan lebih mudah muncul
+    - Contoh: Ketika ProductController dan CarController masih menjadi satu file, kita akan lebih sulit mencari dimana class CarController berada. Jika semua controller digabung dalam satu file, semakin banyak controller maka akan semakin banyak juga jumlah baris kode. Hal ini akan membuat penambahan controller baru semakin sulit. Resiko terjadinya error juga semakin besar karena bisa saja perubahan yang kita lakukan pada suatu method ternyata berpengaruh terhadap method di class lain.
+
+</details>
