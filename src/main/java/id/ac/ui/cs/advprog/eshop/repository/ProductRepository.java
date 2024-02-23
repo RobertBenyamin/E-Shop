@@ -26,7 +26,7 @@ public class ProductRepository {
 
     public Product edit(Product product) {
         for (int i = 0; i < productData.size(); i++) {
-            if (productData.get(i).getProductId().equals(product.getProductId())) {
+            if (productData.get(i).getId().equals(product.getId())) {
                 productData.set(i, product);
                 return product;
             }

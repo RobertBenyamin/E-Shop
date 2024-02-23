@@ -36,27 +36,27 @@ public class ProductServiceImplTest {
     void testCreate() {
         // Arrange
         Product product = new Product();
-        product.setProductId("1");
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setId("1");
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
         when(productRepository.create(any(Product.class))).thenReturn(product);
 
         // Act
         Product savedProduct = productService.create(product);
 
         // Assert
-        assertEquals(product.getProductId(), savedProduct.getProductId());
-        assertEquals(product.getProductName(), savedProduct.getProductName());
-        assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
+        assertEquals(product.getId(), savedProduct.getId());
+        assertEquals(product.getName(), savedProduct.getName());
+        assertEquals(product.getQuantity(), savedProduct.getQuantity());
     }
 
     @Test
     void testFindAll() {
         // Arrange
         Product product1 = new Product();
-        product1.setProductId("1");
+        product1.setId("1");
         Product product2 = new Product();
-        product2.setProductId("2");
+        product2.setId("2");
         when(productRepository.findAll()).thenReturn(Arrays.asList(product1, product2).iterator());
 
         // Act
@@ -65,34 +65,34 @@ public class ProductServiceImplTest {
         // Assert
         assertEquals(2, allProducts.size());
     }
-    
+
     @Test
     void testFindByIdWhenProductExists() {
         // Arrange
-        String productId = "1";
+        String id = "1";
         Product product = new Product();
-        product.setProductId(productId);
+        product.setId(id);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
         // Act
-        Product foundProduct = productService.findById(productId);
+        Product foundProduct = productService.findById(id);
 
         // Assert
         assertNotNull(foundProduct);
-        assertEquals(product.getProductId(), foundProduct.getProductId());
+        assertEquals(product.getId(), foundProduct.getId());
     }
 
     @Test
     void testFindByIdWhenProductNotExists() {
         // Arrange
-        String productId = "1";
-        String nonExistingProductId = "-1";
+        String id = "1";
+        String nonExistingId = "-1";
         Product product = new Product();
-        product.setProductId(productId);
+        product.setId(id);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
         // Act
-        Product foundProduct = productService.findById(nonExistingProductId);
+        Product foundProduct = productService.findById(nonExistingId);
 
         // Assert
         assertNull(foundProduct);
@@ -101,8 +101,8 @@ public class ProductServiceImplTest {
     @Test
     void testGetLastId() {
         // Arrange
-        String lastId1 = "0"; 
-        String lastId2 = "1"; 
+        String lastId1 = "0";
+        String lastId2 = "1";
 
         // Act & Assert
         assertEquals(lastId1, productService.getLastId());
@@ -112,13 +112,13 @@ public class ProductServiceImplTest {
     @Test
     void testDeleteByIdWhenProductExists() {
         // Arrange
-        String productId = "1";
+        String id = "1";
         Product product = new Product();
-        product.setProductId(productId);
+        product.setId(id);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
         // Act
-        productService.deleteById(productId);
+        productService.deleteById(id);
 
         // Assert
         verify(productRepository, times(1)).delete(product);
@@ -127,31 +127,31 @@ public class ProductServiceImplTest {
     @Test
     void testDeleteByIdWhenProductNotExists() {
         // Arrange
-        String productId = "1";
-        String nonExistingProductId = "-1";
+        String id = "1";
+        String nonExistingId = "-1";
         Product product = new Product();
-        product.setProductId(productId);
+        product.setId(id);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
         // Act & Assert
-        assertThrows(ResponseStatusException.class, () -> productService.deleteById(nonExistingProductId));
+        assertThrows(ResponseStatusException.class, () -> productService.deleteById(nonExistingId));
     }
 
     @Test
     void testEditWhenProductExists() {
         // Arrange
-        String productId = "1";
+        String id = "1";
         Product product = new Product();
-        product.setProductId(productId);
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setId(id);
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
         // Act
         Product editedProduct = new Product();
-        editedProduct.setProductId(productId);
-        editedProduct.setProductName("Sampo Cap Bango");
-        editedProduct.setProductQuantity(50);
+        editedProduct.setId(id);
+        editedProduct.setName("Sampo Cap Bango");
+        editedProduct.setQuantity(50);
         productService.edit(editedProduct);
 
         // Assert
@@ -161,16 +161,16 @@ public class ProductServiceImplTest {
     @Test
     void testEditWhenProductNotExists() {
         // Arrange
-        String productId = "1";
-        String nonExistingProductId = "-1";
+        String id = "1";
+        String nonExistingId = "-1";
         Product product = new Product();
-        product.setProductId(productId);
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setId(id);
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
         Product editedProduct = new Product();
-        editedProduct.setProductId(nonExistingProductId);
-        editedProduct.setProductName("Sampo Cap Bango");
-        editedProduct.setProductQuantity(50);
+        editedProduct.setId(nonExistingId);
+        editedProduct.setName("Sampo Cap Bango");
+        editedProduct.setQuantity(50);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
         // Act & Assert
