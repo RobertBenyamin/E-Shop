@@ -5,6 +5,8 @@ import lombok.Getter;
 
 import java.util.Map;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
+
 @Builder
 @Getter
 public class Payment {
@@ -79,11 +81,11 @@ public class Payment {
     }
 
     public void setStatus(String status) {
-        if (status.equals("SUCCESS") || status.equals("REJECTED")) {
+        if (PaymentStatus.contains(status)) {
             this.status = status;
-            if (status.equals("SUCCESS")) {
+            if (status.equals(PaymentStatus.SUCCESS.getValue())) {
                 order.setStatus("SUCCESS");
-            } else if (status.equals("REJECTED")) {
+            } else if (status.equals(PaymentStatus.REJECTED.getValue())) {
                 order.setStatus("FAILED");
             }
         } else {
