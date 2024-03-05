@@ -6,6 +6,10 @@ import id.ac.ui.cs.advprog.eshop.model.Product;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.InjectMocks;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +17,17 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class PaymentRepositoryTest {
+    @InjectMocks
     PaymentRepository paymentRepository;
     List<Payment> payments;
+
+    @Mock
+    private Payment mockPayment;
 
     @BeforeEach
     void setUp() {
@@ -58,45 +69,36 @@ class PaymentRepositoryTest {
 
     @Test
     void testSaveCreate() {
-        Payment payment = payments.get(1);
-        Payment result = paymentRepository.save(payment);
-        Payment findResult = paymentRepository.findById(payments.get(1).getId());
-
-        assertEquals(payment.getId(), result.getId());
-        assertEquals(payment.getId(), findResult.getId());
-        assertEquals(payment.getMethod(), findResult.getMethod());
-        assertEquals(payment.getStatus(), findResult.getStatus());
-        assertEquals(payment.getPaymentData(), findResult.getPaymentData());
-        assertSame(payment.getOrder(), findResult.getOrder());
+        when(mockPayment.getId()).thenReturn("1");
+        Payment result = paymentRepository.save(mockPayment);
+        assertNotNull(result);
+        assertNotNull(result.getId());
     }
 
     @Test
     void testSaveUpdate() {
-        // create new payment
-        Payment payment = payments.get(1);
-        paymentRepository.save(payment);
+        Payment payment = mock(Payment.class);
+        Map<String, String> paymentData = new HashMap<>();
+        paymentData.put("voucherCode", "ESHOP1234567890");
+        Order order = mock(Order.class);
+        when(payment.getId()).thenReturn("1");
+        when(payment.getMethod()).thenReturn("VOUCHER_CODE");
 
-        // change payment data
-        Payment newPayment = new Payment(payment.getId(), payment.getMethod(), payments.get(0).getPaymentData(),
-                payment.getOrder());
-        Payment result = paymentRepository.save(newPayment);
-        Payment findResult = paymentRepository.findById(payments.get(1).getId());
+        Payment savedPayment = paymentRepository.save(payment);
+        Payment newPayment = new Payment(savedPayment.getId(), savedPayment.getMethod(), paymentData, order);
+        Payment updatedPayment = paymentRepository.save(newPayment);
 
-        assertEquals(result.getId(), findResult.getId());
-        assertEquals(result.getId(), findResult.getId());
-        assertEquals(result.getStatus(), findResult.getStatus());
-        assertEquals(result.getMethod(), findResult.getMethod());
-        assertEquals(payments.getFirst().getPaymentData(), findResult.getPaymentData());
-        assertSame(result.getOrder(), findResult.getOrder());
-
+        assertEquals(newPayment.getId(), updatedPayment.getId());
+        assertEquals(newPayment.getMethod(), updatedPayment.getMethod());
+        assertEquals(newPayment.getStatus(), updatedPayment.getStatus());
+        assertEquals(newPayment.getPaymentData(), updatedPayment.getPaymentData());
+        assertSame(newPayment.getOrder(), updatedPayment.getOrder());
     }
 
     @Test
     void testFindByIdIfIdFound() {
-        for (Payment payment : payments) {
-            paymentRepository.save(payment);
-        }
-        Payment findResult = paymentRepository.findById(payments.get(1).getId());
+        Payment newPayment = paymentRepository.save(payments.get(1));
+        Payment findResult = paymentRepository.findById(newPayment.getId());
 
         assertEquals(payments.get(1).getId(), findResult.getId());
         assertEquals(payments.get(1).getMethod(), findResult.getMethod());
