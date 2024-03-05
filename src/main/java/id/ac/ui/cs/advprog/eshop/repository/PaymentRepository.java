@@ -3,55 +3,36 @@ package id.ac.ui.cs.advprog.eshop.repository;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PaymentRepository {
-    private List<Payment> paymentData = new ArrayList<>();
+    private Map<String, Payment> paymentData = new HashMap<>();
 
     public Payment save(Payment payment) {
-        int i = 0;
-        for (Payment savedPayment : paymentData) {
-            if (savedPayment.getId().equals(payment.getId())) {
-                paymentData.remove(i);
-                paymentData.add(i, payment);
-                return payment;
-            }
-            i += 1;
-        }
-        paymentData.add(payment);
+        paymentData.put(payment.getId(), payment);
         return payment;
     }
 
     public Payment findById(String id) {
-        for (Payment savedPayment : paymentData) {
-            if (savedPayment.getId().equals(id)) {
-                return savedPayment;
-            }
-        }
-        return null;
+        return paymentData.get(id);
     }
 
     public List<Payment> findAllByVoucherCode() {
-        List<Payment> result = new ArrayList<>();
-        for (Payment savedPayment : paymentData) {
-            if (savedPayment.getMethod().equals("VOUCHER_CODE")) {
-                result.add(savedPayment);
-            }
-        }
-        return result;
+        return paymentData.values().stream()
+                .filter(payment -> payment.getMethod().equals("VOUCHER_CODE"))
+                .collect(Collectors.toList());
     }
 
     public List<Payment> findAllByCashOnDelivery() {
-        List<Payment> result = new ArrayList<>();
-        for (Payment savedPayment : paymentData) {
-            if (savedPayment.getMethod().equals("CASH_ON_DELIVERY")) {
-                result.add(savedPayment);
-            }
-        }
-        return result;
+        return paymentData.values().stream()
+                .filter(payment -> payment.getMethod().equals("CASH_ON_DELIVERY"))
+                .collect(Collectors.toList());
     }
 
     public List<Payment> getAllPayment() {
-        return paymentData;
+        return new ArrayList<>(paymentData.values());
     }
 }
