@@ -134,3 +134,18 @@ Kode saya barulah mengimplementasikan testing untuk memenuhi prinsip secure codi
     - Contoh: Ketika ProductController dan CarController masih menjadi satu file, kita akan lebih sulit mencari dimana class CarController berada. Jika semua controller digabung dalam satu file, semakin banyak controller maka akan semakin banyak juga jumlah baris kode. Hal ini akan membuat penambahan controller baru semakin sulit. Resiko terjadinya error juga semakin besar karena bisa saja perubahan yang kita lakukan pada suatu method ternyata berpengaruh terhadap method di class lain.
 
 </details>
+
+## Module 4
+
+<details>
+<summary>Reflection</summary>
+
+1. Ya, TDD flow ini membantu saya dengan membuat alur pengembangan program menjadi lebih terarah. Meski begitu, saya masih mengalami banyak kesulitan ketika membuat test, terkhususnya ketika berurusan dengan `Mock`. Saya rasa perlu latihan yang banyak untuk bisa menguasai TDD ini.
+
+2.  - Fast: Ya, test saya sudah memenuhi prinsip ini. Saya sudah memisahkan antara unitTest dan functionalTest. Saya juga sudah mengimplementasikan `stubs`untuk _predetermined_ hasil dari suatu pemanggilan fungsi sehingga test tidak akan bergantung terhadap test lain.
+    - Isolated: Ya, test saya sudah memenuhi prinsip ini. Saya menggunakan `mock objects` untuk digunakan di test saya. Saya juga menggunakan `setUp` untuk mencegah terjadinya duplikasi object.
+    - Repeatable: Ya, test saya sudah memenuhi prinsip ini. Test saya sudah memenuhi prinsip Isolated sehingga setiap data yang diperlukan di dalam test akan tetap sama setiap kali testing dilakukan.
+    - Self-Validating: Test saya belum sepenuhnya memenuhi prinsip ini. Test saya hanya menggunakan `assert` untuk validasi hasil. Meski begitu, masih banyak test yang memiliki banyak assert di dalamnya. Berikutnya, saya harus lebih memisahkan lagi setiap assert ke test yang berbeda.
+    - Thorough: Ya, test saya sudah memenuhi prinsip ini. Test saya sudah mencakup semua _unhappy_ dan _happy paths_. Test saya juga sudah mencakup semua kemungkinan _error_.
+
+</details>
