@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.UUID;
+
 
 public class PaymentRepository {
     private Map<String, Payment> paymentData = new HashMap<>();
 
     public Payment save(Payment payment) {
-        paymentData.put(payment.getId(), payment);
+        paymentData.put(UUID.randomUUID().toString(), payment);
         return payment;
     }
 
