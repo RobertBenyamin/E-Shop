@@ -145,7 +145,10 @@ class PaymentServiceImplTest {
         Payment payment = new Payment("6c93d3e2-b009-46ba-9d15-f03d85adc2de", "CASH_ON_DELIVERY", paymentDatas.get(0),
                 orders.get(1));
 
-        assertNull(paymentService.getPayment(payment.getId()));
+        doReturn(null).when(paymentRepository).findById(payment.getId());
+
+        assertThrows(NoSuchElementException.class,
+                () -> paymentService.getPayment(payment.getId()));
     }
 
     @Test

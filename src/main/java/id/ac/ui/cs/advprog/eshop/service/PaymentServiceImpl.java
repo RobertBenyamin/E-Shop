@@ -34,7 +34,12 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     public Payment getPayment(String paymentId) {
-        return paymentRepository.findById(paymentId);
+        Payment payment = paymentRepository.findById(paymentId);
+        if (payment != null) {
+            return payment;
+        } else {
+            throw new NoSuchElementException("Payment not found");
+        }
     }
 
     public List<Payment> getAllPayments() {
